@@ -1,37 +1,73 @@
-const arr = [];
+// json request
+$(document).ready(function() {
+  // gather JSON
+  const TIMEOUT_MS = 60000;
+  const values = [];
 
+  function updateTick() {
+    $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD&api_key=AlZZXbw8bkmXnEiBVKr6zbgzkiKmHJKE', success);
+    setTimeout(updateTick, TIMEOUT_MS);
+  }
 
-function getData() {
+  function success(data) {
+    values.push(data);
+    console.log(data);
+  }
 
-  $(function() {
-    // do not need this: event.preventDefault() because there is no event occurring on page other than loading the page
-    // ajax call
-    var $xhr = $.getJSON('https://api.coinbase.com/v2/exchange-rates');
-    // console.log($xhr);
+  updateTick();
 
-    // this is what will hapen when the get request comes back
-    $xhr.done(function(data) {
-      // if there is a 200 error, give up
-      if ($xhr.status !== 200) {
-        return;
-      }
-      // if there is not, manipulate request data
-      console.log(data);
-      // push data into array
-      arr.push(data);
-    });
-
-  });
-
-  // console.log(arr);
-
-}
-
-setInterval(getData, 300000);
+  console.log(values);
 
 
 
 
+  // make bubbles
+  d3.select("#content").attr("align","center");
+  var width = 800;
+  var height = 600;
+
+  var numNodes = 7;
+  var nodes = d3.range(numNodes).map(function(d) {
+    return {
+      radius: Math.random() * 100
+    }
+  })
+
+
+
+  var simulation = d3.forceSimulation(nodes)
+    .force('charge', d3.forceManyBody().strength(30))
+    .force('center', d3.forceCenter(width / 2, height / 2))
+    .force('collision', d3.forceCollide().radius(function(d) {
+      return d.radius
+    }))
+    .on('tick', ticked);
+
+  function ticked() {
+    var u = d3.select('svg')
+      .selectAll('circle')
+      .data(nodes)
+
+    u.enter()
+      .append('circle')
+      .attr('r', function(d) {
+        return d.radius
+      })
+      .merge(u)
+      .attr('cx', function(d) {
+        return d.x
+      })
+      .attr('cy', function(d) {
+        return d.y
+      })
+
+    u.exit().remove()
+  }
+
+})
+
+
+// make bubbles
 
 
 
@@ -41,28 +77,21 @@ setInterval(getData, 300000);
 
 
 
-// // create web audio api context
-// var context = new(window.AudioContext || window.webkitAudioContext)();
+// //make bubbles on page load
+// $(document).ready(function() {
 //
-// // create oscillator node inside of context
-// var oscillator = context.createOscillator();
-// // define waveform type
-// oscillator.type = 'sine';
-// // set frequency of waveform
-// oscillator.frequency.value = 329.6;
-// // connect oscillator to destination
-// oscillator.connect(context.destination);
-// // start the oscillator
-// // oscillator.start();
+// // define bubble container
+// var width= 960;
+// var height= 500;
 //
-// // create adjustable volume
-// var gain = context.createGain();
-// // connect gain to oscillator
-// oscillator.connect(gain);
-// gain.connect(context.destination);
+// // create color array of bubbles
+// var colorScale = ['rgb(240, 85, 31)', 'rgb(250, 209, 85)', 'rgb(168, 198, 178)', 'rgb(178, 17, 67)', 'rgb(178, 103, 101)', 'rgb(195, 215, 138)', 'rgb(68, 146, 168)' ];
+// // greate gravity center along x-axis
+// var xCenter = 450;
 //
-// var now = context.currentTime;
-// gain.gain.setValueAtTime(1, now);
-// gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
-// oscillator.start(now);
-// oscillator.stop(now + 0.5);
+// // define number of nodes(bubbles) to be generated
+//
+// // calulate
+// // var nodes= d3.range(numNodes).map(function(d, ))
+//
+// })

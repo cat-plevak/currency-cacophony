@@ -1,32 +1,41 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>ballad of the dollar</title>
-  </head>
-  <body>
-    <div class='container'>
-      <div class='notes'>
-        <div class='note note1' data-frequency='329.60'>E4</div>
-        <div class='note note2' data-frequency='246.90'>B3</div>
-        <div class='note note3' data-frequency='196.00'>G3</div>
-        <div class='note note4' data-frequency='146.80'>D3</div>
-        <div class='note note5' data-frequency='110.00'>A2</div>
-        <div class='note note6' data-frequency='82.41'>E2</div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <!-- end of notes -->
-      </div>
+  <title>ballad of the dollar</title>
 
-    <!-- end of container -->
-    </div>
+  <style>
+    circle {
+      fill: rgba(195, 215, 138, 0.8);
+    }
+  </style>
 
 
+</head>
+
+<body>
+
+  <!-- create content container svg -->
+  <div id='content'>
+    <svg width='800' height='600'>
+
+        <!-- position content vertically and horizontally -->
+        <!-- <g transform='translate(500, 300)'></g> -->
+      </svg>
+  </div>
+
+  <!-- d3 script tag -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
 
 
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-  </body>
+
+  <!-- jquery script tags -->
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+</body>
+
 </html>
