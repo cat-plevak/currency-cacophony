@@ -4,7 +4,7 @@ $(document).ready(function() {
   const TIMEOUT_MS = 60000;
 
   function updateTick() {
-    $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD,GBPUSD,NZDUSD,CHFUSD,USDJPY&api_key=AlZZXbw8bkmXnEiBVKr6zbgzkiKmHJKE', success);
+    $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD,GBPUSD,NZDUSD,CHFUSD&api_key=AlZZXbw8bkmXnEiBVKr6zbgzkiKmHJKE', success);
     setTimeout(updateTick, TIMEOUT_MS);
   }
 
@@ -16,12 +16,18 @@ $(document).ready(function() {
 
     var numNodes = 7;
 
-    var i = 0;
-    var nodes = d3.range(numNodes).map((d) => {
-      var price = data[i++].price;
+    // var i = 0;
+    // var nodes = d3.range(numNodes).map((d) => {
+    //   var price = data[i++].price;
+    //   return {
+    //     radius: price
+    //   };
+    // });
+
+    var nodes = data.map((el) => {
       return {
-        radius: price
-      };
+        radius: el.price
+      }
     });
 
     var simulation = d3.forceSimulation(nodes)
