@@ -7,7 +7,7 @@ $(document).ready(function() {
 
   // get json data
   function updateTick() {
-    $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD,GBPUSD,NZDUSD,CHFUSD&api_key=AlZZXbw8bkmXnEiBVKr6zbgzkiKmHJKE', success);
+    $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD,GBPUSD,NZDUSD,CHFUSD&api_key=MHvtlEXw7uWvwZMWXJoNjc3EyhqatfzK', success);
     setTimeout(updateTick, TIMEOUT_MS);
   }
 
@@ -18,7 +18,7 @@ $(document).ready(function() {
     var width = 800;
     var height = 600;
 
-    var numNodes = 7;
+
 
     var maxPrice = data.reduce((last, current) => Math.max(current.price, last), Number.MIN_SAFE_INTEGER);
 
@@ -28,26 +28,25 @@ $(document).ready(function() {
       };
     });
 
-    const ts = [];
-    const price = [];
-    const dp = [];
-
-    data.forEach((el) => {
-      ts.push(el.timestamp);
-      price.push(el.price);
-    });
-
-    function derivatives(ts, price) {
-      for(i=1; i<ts.length; i++) {
-        let derivative = (price[i] - price[i-1]) / (ts[i] - ts[i-1]);
-        dp.push(derivative);
-      }
-    }
-
-    ts.unshift();
-    price.unshift();
-
-    console.log(dp);
+    // const ts = [];
+    // const price = [];
+    // const dp = [];
+    //
+    // data.forEach((el) => {
+    //   ts.push(el.timestamp);
+    //   price.push(el.price);
+    // });
+    //
+    //
+    // for(i=1; i<ts.length; i++) {
+    //   let derivative = (price[i] - price[i-1]) / (ts[i] - ts[i-1]);
+    //   dp.push(derivative);
+    // }
+    //
+    // ts.unshift();
+    // price.unshift();
+    //
+    // console.log(dp);
 
     var simulation = d3.forceSimulation(nodes)
       .force('charge', d3.forceManyBody().strength(30))
