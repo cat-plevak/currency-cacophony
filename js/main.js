@@ -5,14 +5,60 @@ $(document).ready(function() {
   const values = [];
 
   function updateTick() {
-    $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD&api_key=AlZZXbw8bkmXnEiBVKr6zbgzkiKmHJKE', success);
+    $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD,GBPUSD,NZDUSD,CHFUSD,USDJPY&api_key=AlZZXbw8bkmXnEiBVKr6zbgzkiKmHJKE', success);
     setTimeout(updateTick, TIMEOUT_MS);
   }
 
   function success(data) {
+    values.length = 0;
     values.push(data);
     console.log(data);
+
+    // make bubbles
+    d3.select("#content").attr("align","center");
+    var width = 800;
+    var height = 600;
+
+    var numNodes = 7;
+
+    var i = 0;
+    var nodes = d3.range(numNodes).map((d) => {
+      var price = values['0']['0'].price;
+      return {
+        radius: price
+      };
+    });
+
+    var simulation = d3.forceSimulation(nodes)
+      .force('charge', d3.forceManyBody().strength(30))
+      .force('center', d3.forceCenter(width / 2, height / 2))
+      .force('collision', d3.forceCollide().radius(function(d) {
+        return d.radius
+      }))
+      .on('tick', ticked);
+
+    function ticked() {
+      var u = d3.select('svg')
+        .selectAll('circle')
+        .data(nodes)
+
+      u.enter()
+        .append('circle')
+        .attr('r', function(d) {
+          return d.radius
+        })
+        .merge(u)
+        .attr('cx', function(d) {
+          return d.x
+        })
+        .attr('cy', function(d) {
+          return d.y
+        })
+
+      u.exit().remove();
+    }
   }
+
 
   updateTick();
 
@@ -20,54 +66,66 @@ $(document).ready(function() {
 
 
 
-
-  // make bubbles
-  d3.select("#content").attr("align","center");
-  var width = 800;
-  var height = 600;
-
-  var numNodes = 7;
-  var nodes = d3.range(numNodes).map(function(d) {
-    return {
-      radius: Math.random() * 100
-    }
-  })
+  // when updateTick(), radius of circle nodes = 4th + 5th place
 
 
 
-  var simulation = d3.forceSimulation(nodes)
-    .force('charge', d3.forceManyBody().strength(30))
-    .force('center', d3.forceCenter(width / 2, height / 2))
-    .force('collision', d3.forceCollide().radius(function(d) {
-      return d.radius
-    }))
-    .on('tick', ticked);
 
-  function ticked() {
-    var u = d3.select('svg')
-      .selectAll('circle')
-      .data(nodes)
 
-    u.enter()
-      .append('circle')
-      .attr('r', function(d) {
-        return d.radius
-      })
-      .merge(u)
-      .attr('cx', function(d) {
-        return d.x
-      })
-      .attr('cy', function(d) {
-        return d.y
-      })
+  // // make bubbles
+  // d3.select("#content").attr("align","center");
+  // var width = 800;
+  // var height = 600;
+  //
+  // var numNodes = 7;
+  //
+  // // var nodes = d3.range(numNodes).map((d) => {
+  // //   return {
+  // //     radius: Math.random() * 100
+  // //   };
+  // // });
+  //
+  // var i = 0;
+  // var nodes = d3.range(numNodes).map((d) => {
+  //   return {
+  //     radius: values[i++].price
+  //   };
+  // });
 
-    u.exit().remove()
-  }
+
+  // var simulation = d3.forceSimulation(nodes)
+  //   .force('charge', d3.forceManyBody().strength(30))
+  //   .force('center', d3.forceCenter(width / 2, height / 2))
+  //   .force('collision', d3.forceCollide().radius(function(d) {
+  //     return d.radius
+  //   }))
+  //   .on('tick', ticked);
+  //
+  // function ticked() {
+  //   var u = d3.select('svg')
+  //     .selectAll('circle')
+  //     .data(nodes)
+  //
+  //   u.enter()
+  //     .append('circle')
+  //     .attr('r', function(d) {
+  //       return d.radius
+  //     })
+  //     .merge(u)
+  //     .attr('cx', function(d) {
+  //       return d.x
+  //     })
+  //     .attr('cy', function(d) {
+  //       return d.y
+  //     })
+  //
+  //   u.exit().remove();
+  // }
 
 })
 
 
-// make bubbles
+
 
 
 
