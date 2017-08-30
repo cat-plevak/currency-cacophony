@@ -13,7 +13,8 @@ $(document).ready(function() {
 
 
   function success(data) {
-    // make bubbles
+
+    // position content box
     d3.select("#content").attr("align", "center");
     var width = 800;
     var height = 600;
@@ -22,6 +23,7 @@ $(document).ready(function() {
     // find max rate in array
     var maxPrice = data.reduce((last, current) => Math.max(current.price, last), Number.MIN_SAFE_INTEGER);
 
+    // create radius for each bubble from data
     var nodes = data.map((el) => {
       return {
         radius: el.price / maxPrice * RADIUS_COEFF
@@ -57,6 +59,7 @@ $(document).ready(function() {
       }))
       .on('tick', ticked);
 
+    // select all bubbles and append node data
     function ticked() {
       var u = d3.select('svg')
         .selectAll('circle')
@@ -64,9 +67,14 @@ $(document).ready(function() {
 
 
       // change bubble colors
-      var colors = ['rgba(240, 85, 31, 0.8)', 'rgba(250, 209, 85, 0.8)', 'rgba(168, 198, 178, 0.8)', 'rgba(178, 17, 67, 0.7)', 'rgba(195, 215, 138, 0.8)', 'rgba(68, 146, 168, 0.8)']
+      var colors = ['rgba(240, 85, 31, 0.8)', 'rgba(250, 209, 85, 0.8)', 'rgba(168, 198, 178, 0.8)', 'rgba(178, 17, 67, 0.7)', 'rgba(195, 215, 138, 0.8)', 'rgba(68, 146, 168, 0.8)'];
 
-
+      //change transparency and show name/value on mouseover
+      $('circle').mouseover(function() {
+        //append el.price
+        //append name
+        //change transparency
+      })
 
       // append circles and style nodes
       u.enter()
