@@ -2,9 +2,10 @@ $(document).ready(function() {
   // get json every 5 sec
   const TIMEOUT_MS = 5000;
   const ALPHA = 1e6;
-  const RADIUS_COEFF = 10;
+  const RADIUS_COEFF = 30;
   let fired = false;
   let latestRates = null;
+  let maxPrice = 0;
 
 
   // call for splash page
@@ -15,7 +16,7 @@ $(document).ready(function() {
     $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD,GBPUSD,NZDUSD,CHFUSD&api_key=8O9bzHMif3AT4u6ODy3yhRIalXnJWiI8', success);
     if (!fired) {
       setTimeout(updateTick, TIMEOUT_MS);
-      fired = true;
+      // fired = true;
     }
   }
 
@@ -37,7 +38,7 @@ $(document).ready(function() {
         tf = el.timestamp;
         ti = latestRates[idx].timestamp;
         let dPrice = (tf - ti === 0) ? 0 : (pf - pi) / (tf - ti);
-        let alphaDPrice = ALPHA * dPrice;
+        let alphaDPrice = ALPHA * Math.abs(dPrice);
         withDP.push({
           price: el.price,
           timestamp: el.timestamp,
@@ -51,6 +52,14 @@ $(document).ready(function() {
         });
       });
       latestRates = withDP;
+      console.log(withDP);
+
+      // find max rate in array
+      var maxPrice = latestRates.reduce((last, current) => {
+        let things = Math.max(current.alphaDPrice, last);
+        return things;
+      }, 0);
+
       plotLatestRates();
     }
     else {
@@ -58,12 +67,11 @@ $(document).ready(function() {
       console.log('FIRST PASS', latestRates);
     }
 
-
-
     function plotLatestRates() {
       // create radius for each bubble from data
       var nodes = latestRates.map((el) => {
-        const radius = el.price + el.alphaDPrice * RADIUS_COEFF;
+        // const radius = el.price + el.alphaDPrice / maxPrice * RADIUS_COEFF;
+        const radius = (1.0 + el.alphaDPrice) / maxPrice * RADIUS_COEFF;
         return {
           radius: radius
         };
