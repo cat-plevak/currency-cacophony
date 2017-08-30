@@ -72,10 +72,18 @@ $(document).ready(function() {
 
       //change transparency and show name/value on mouseover
       $('circle').mouseover(function() {
+        $(this).css('opacity', 0.6)
+        $(this).append('<h1>hello</h1>')
         //append el.price
         //append name
-        //change transparency
       })
+
+      $('circle').mouseleave(function() {
+        $(this).css('opacity', 1)
+        //append el.price
+        //append name
+      })
+
 
       // append circles and style nodes
       u.enter()
@@ -93,6 +101,7 @@ $(document).ready(function() {
         .attr('cy', function(d) {
           return d.y;
         });
+
 
       u.exit().remove();
     }
