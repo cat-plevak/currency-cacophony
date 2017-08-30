@@ -1,7 +1,6 @@
-
 $(document).ready(function() {
   // get json every 3 sec
-  const TIMEOUT_MS = 3000;
+  const TIMEOUT_MS = 300000;
   // radius multiplier
   const RADIUS_COEFF = 100;
 
@@ -101,3 +100,20 @@ $(document).ready(function() {
   updateTick();
 
 });
+
+
+
+
+
+
+
+// splash page
+/* Open when someone clicks on the span element */
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+/* Close when someone clicks on the "x" symbol inside the overlay */
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+}

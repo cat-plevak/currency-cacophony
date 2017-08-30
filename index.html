@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>p1</title>
-
+  <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+  <link rel='stylesheet' href='css/main.css'>
+  <title>bubble bank</title>
   <style>
     circle {
       fill: rgba(0, 0, 0, 0.5);
@@ -16,18 +16,50 @@
 
 <body>
 
+
+
+  <!-- splash page -->
+  <!-- The overlay -->
+  <div id="myNav" class="overlay">
+
+    <!-- Button to close the overlay navigation -->
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <!-- Overlay content -->
+    <div class="overlay-content">
+      <h1>welcome to bubble bank!</h1>
+      <p></p>
+    </div>
+
+  </div>
+
+  <!-- Use any element to open/show the overlay navigation menu -->
+  <span onclick="openNav()">about</span>
+
+
+
+
+
+
   <!-- create content container svg -->
   <div id='content'>
-    <svg width='800' height='600'>
+    <svg width='1000' height='650'>
 
         <!-- position content vertically and horizontally -->
         <!-- <g transform='translate(500, 300)'></g> -->
-      </svg>
+    </svg>
   </div>
 
   <!-- d3 script tag -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
 
+  <main>
+    <h1>bubble bank</h1>
+  </main>
+
+  <footer>
+    <small>&#9400; catherine plevak, 2017</small>
+  </footer>
 
 
   <!-- jquery script tags -->
