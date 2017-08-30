@@ -62,7 +62,11 @@ $(document).ready(function() {
         .selectAll('circle')
         .data(nodes);
 
-      var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
+
+      // change bubble colors
+      var colors = ['rgba(240, 85, 31, 0.8)', 'rgba(250, 209, 85, 0.8)', 'rgba(168, 198, 178, 0.8)', 'rgba(178, 17, 67, 0.7)', 'rgba(195, 215, 138, 0.8)', 'rgba(68, 146, 168, 0.8)']
+
+
 
       // append circles and style nodes
       u.enter()
@@ -88,5 +92,4 @@ $(document).ready(function() {
 
   updateTick();
 
-  // console.log(values);
 });
