@@ -4,6 +4,8 @@ $(document).ready(function() {
   // radius multiplier
   const RADIUS_COEFF = 100;
 
+  openNav();
+
   // get json data on updateTick
   function updateTick() {
     $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD,GBPUSD,NZDUSD,CHFUSD&api_key=8O9bzHMif3AT4u6ODy3yhRIalXnJWiI8', success);
