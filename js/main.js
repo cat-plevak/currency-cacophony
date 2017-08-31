@@ -15,7 +15,7 @@ $(document).ready(function() {
   // other key nhBbxgo7i7D3d2Q81xbyKX9x5PAeaVhH. 8O9bzHMif3AT4u6ODy3yhRIalXnJWiI8
 
   function updateTick() {
-    $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD,GBPUSD,NZDUSD,CHFUSD&api_key=nhBbxgo7i7D3d2Q81xbyKX9x5PAeaVhH', success);
+    $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD,GBPUSD,NZDUSD,CHFUSD&api_key=8O9bzHMif3AT4u6ODy3yhRIalXnJWiI8', success);
     if (!fired) {
       setTimeout(updateTick, TIMEOUT_MS);
       // fired = true;
@@ -39,8 +39,8 @@ $(document).ready(function() {
         pi = latestRates[idx].price;
         tf = el.timestamp;
         ti = latestRates[idx].timestamp;
-        let dPrice = (tf - ti === 0) ? 0 : (pf - pi) / (tf - ti);
-        let alphaDPrice = ALPHA * Math.abs(dPrice);
+        dPrice = (tf - ti === 0) ? 0 : (pf - pi) / (tf - ti);
+        alphaDPrice = ALPHA * Math.abs(dPrice);
         withDP.push({
           price: el.price,
           timestamp: el.timestamp,
@@ -63,8 +63,7 @@ $(document).ready(function() {
       }, 0);
 
       plotLatestRates();
-    }
-    else {
+    } else {
       latestRates = data;
       console.log('FIRST PASS', latestRates);
     }
@@ -73,7 +72,10 @@ $(document).ready(function() {
       // create radius for each bubble from data
       var nodes = latestRates.map((el) => {
         // const radius = el.price + el.alphaDPrice / maxPrice * RADIUS_COEFF;
-        const radius = (1.0 + el.alphaDPrice) / maxPrice * RADIUS_COEFF;
+
+
+        // HOW IS THIS RETURNING ANYTHING WITH RADIUS LESS THAN 100??
+        let radius = (1.0 + el.alphaDPrice) / maxPrice * RADIUS_COEFF;
         return {
           radius: radius
         };
@@ -82,6 +84,11 @@ $(document).ready(function() {
 
 
       // forcelayout
+
+
+
+
+
       var simulation = d3.forceSimulation(nodes)
         .force('charge', d3.forceManyBody().strength(30))
         .force('center', d3.forceCenter(width / 2, height / 2))
@@ -129,12 +136,12 @@ $(document).ready(function() {
 
 
         u.exit().remove();
+      }
+
     }
-
   }
-}
 
-updateTick();
+  updateTick();
 });
 
 
