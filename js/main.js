@@ -2,7 +2,7 @@ $(document).ready(function() {
   // get json every 5 sec
   const TIMEOUT_MS = 5000;
   const ALPHA = 1e6;
-  const RADIUS_COEFF = 30;
+  const RADIUS_COEFF = 100;
   let fired = false;
   let latestRates = null;
   let maxPrice = 0;
@@ -12,8 +12,10 @@ $(document).ready(function() {
   openNav();
 
   // get json data on updateTick
+  // other key nhBbxgo7i7D3d2Q81xbyKX9x5PAeaVhH. 8O9bzHMif3AT4u6ODy3yhRIalXnJWiI8
+
   function updateTick() {
-    $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD,GBPUSD,NZDUSD,CHFUSD&api_key=8O9bzHMif3AT4u6ODy3yhRIalXnJWiI8', success);
+    $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD,GBPUSD,NZDUSD,CHFUSD&api_key=nhBbxgo7i7D3d2Q81xbyKX9x5PAeaVhH', success);
     if (!fired) {
       setTimeout(updateTick, TIMEOUT_MS);
       // fired = true;
@@ -149,5 +151,5 @@ function openNav() {
 /* Close when someone clicks on the "x" symbol inside the overlay */
 function closeNav() {
   document.getElementById("myNav").style.width = "0%";
-  $('.text').empty();
+  $('.text, .header').empty();
 }
