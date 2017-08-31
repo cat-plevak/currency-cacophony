@@ -12,10 +12,10 @@ $(document).ready(function() {
   openNav();
 
   // get json data on updateTick
-  // other key nhBbxgo7i7D3d2Q81xbyKX9x5PAeaVhH. 8O9bzHMif3AT4u6ODy3yhRIalXnJWiI8
+  // other key nhBbxgo7i7D3d2Q81xbyKX9x5PAeaVhH. 8O9bzHMif3AT4u6ODy3yhRIalXnJWiI8, rRD8K1ujRdP5ruyrsIrAAWsUFsx341hX
 
   function updateTick() {
-    $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD,GBPUSD,NZDUSD,CHFUSD&api_key=8O9bzHMif3AT4u6ODy3yhRIalXnJWiI8', success);
+    $.get('https://forex.1forge.com/1.0.2/quotes?pairs=EURUSD,CADUSD,AUDUSD,GBPUSD,NZDUSD,CHFUSD&api_key=rRD8K1ujRdP5ruyrsIrAAWsUFsx341hX', success);
     if (!fired) {
       setTimeout(updateTick, TIMEOUT_MS);
       // fired = true;
@@ -76,6 +76,10 @@ $(document).ready(function() {
 
         // HOW IS THIS RETURNING ANYTHING WITH RADIUS LESS THAN 100??
         let radius = (1.0 + el.alphaDPrice) / maxPrice * RADIUS_COEFF;
+        if (radius < 1.0 || isNaN(radius)) {
+          alert(`Radius ${radius} BOOM`)
+          radius = 1.0
+        }
         return {
           radius: radius
         };
@@ -84,9 +88,6 @@ $(document).ready(function() {
 
 
       // forcelayout
-
-
-
 
 
       var simulation = d3.forceSimulation(nodes)
@@ -116,7 +117,6 @@ $(document).ready(function() {
           $(this).css('opacity', 1)
         })
 
-
         // append circles and style nodes
         u.enter()
           .append('circle')
@@ -133,7 +133,6 @@ $(document).ready(function() {
           .attr('cy', function(d) {
             return d.y;
           });
-
 
         u.exit().remove();
       }
